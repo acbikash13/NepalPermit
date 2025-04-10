@@ -11,12 +11,9 @@ export default function Home() {
         </h1>
         <p className="mt-6 text-lg leading-8 text-gray-600 mb-10">
           Apply for permits to visit national parks and protected areas in Nepal. Complete the application form to
-          receive your permit confirmation.
+          receive your permit confirmation. Built by Bishal Acharya!
         </p>
         <p>
-            <h2 className="text-xl text-blue-500">
-            This application is built by Bishal Acharya. Please reach out if you have any questions.
-            </h2>
         </p>
         <div className="mt-10">
           <Link href="/apply">

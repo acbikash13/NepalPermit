@@ -15,6 +15,9 @@ export async function GET(request: NextRequest, context: { params: Promise<{ id:
 
     const { id } = await context.params
 
+    const isNumericId = !isNaN(Number(id));
+    const queryCondition = isNumericId ? "id = $1" : "confirmation_id = $1";
+
     const result = await query(
       `
       SELECT 
@@ -34,10 +37,11 @@ export async function GET(request: NextRequest, context: { params: Promise<{ id:
         passport_photo_url as "passportPhotoUrl", 
         id_document_url as "idDocumentUrl"
       FROM permits 
-      WHERE id = $1
-    `,
-      [id],
-    )
+      WHERE ${queryCondition}
+      `,
+      [isNumericId ? Number(id) : id] // ✅ cast only when using id = $1
+    );
+    
 
     if (result.rows.length === 0) {
       return NextResponse.json({ error: "Permit not found" }, { status: 404 })
